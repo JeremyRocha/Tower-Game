@@ -17,7 +17,7 @@ class Login{
         $verify->execute(); //Executes the query
         $user = $verify->fetch(PDO::FETCH_ASSOC);  //Fetch information from database
 
-        if($user && password_verify($password, $user['password'])){
+        if($user && password_verify($password, $user['password'])){ //Check password verification
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             return true;
