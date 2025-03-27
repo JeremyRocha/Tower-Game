@@ -13,47 +13,48 @@ class Login{
     //Method for logging in
     public function login($username, $password){
         $verify = $this->pdo->prepare("SELECT * FROM users WHERE username = :username"); //Prepare query to find username
-        $verify->bindParam(':username', $username); //Binds username from db to variable
+        $verify->bindParam(':username', $username); //Binds username to database
         $verify->execute(); //Executes the query
         $user = $verify->fetch(PDO::FETCH_ASSOC);  //Fetch information from database
 
         if($user && password_verify($password, $user['password'])){ //Check password verification
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            return true;
+            $_SESSION['user_id'] = $user['id']; //Stores user id in session
+            $_SESSION['username'] = $user['username']; //Store username in session
+            return true; //Returns true
         }else{
-            return false;
+            return false; //Returns false
         }
     }
 }
 
 class Register{
-    private $pdo;
+    private $pdo; //Store database connection
 
-    public function __construct($pdo){
-        $this->pdo = $pdo;
+    public function __construct($pdo){ //Default Constructor
+        $this->pdo = $pdo; //Stores database
     }
 
-    public function register($username, $password){
-        $verify = $this->pdo->prepare("SELECT * FROM users WHERE username = :username");
-        $verify->bindParam(':username', $username);
-        $verify->execute();
-        $user = $verify->fetch(PDO::FETCH_ASSOC);
+    public function register($username, $password){ //Method for registration
+        $verify = $this->pdo->prepare("SELECT * FROM users WHERE username = :username"); //Prepare query
+        $verify->bindParam(':username', $username); //Bind username to database
+        $verify->execute(); //Executes the query
+        $user = $verify->fetch(PDO::FETCH_ASSOC); ;  //Fetch information from database
 
         if($user){
-            return "Username already taken";
+            return "Username already taken"; //Return the following print
         }
 
         $storePassword = password_hash($password, PASSWORD_DEFAULT);
-        $verify = $this->pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
-        $verify->bindParam(':username', $username);
-        $verify->bindParam(':password', $storePassword);
-        $verify->execute();
-        return "Registered successfully! Please log in";
+        $verify = $this->pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)"); //Prepare query
+        $verify->bindParam(':username', $username); //Bind username to database
+        $verify->bindParam(':password', $storePassword); //Bind password to database
+        $verify->execute(); //Executes the query
+        return "Registered successfully! Please log in"; //Returns message
     }
 }
 
 if(isset($_POST['login'])){
+    /** @noinspection PhpUndefinedVariableInspection */
     $login = new Login($pdo);
     $username = $_POST['username'];
     $password = $_POST['password'];
