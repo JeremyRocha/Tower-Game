@@ -53,24 +53,23 @@ class Register{
     }
 }
 
-if(isset($_POST['login'])){
-    /** @noinspection PhpUndefinedVariableInspection */
-    $login = new Login($pdo);
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+if(isset($_POST['login'])){ //Check for login
+    $login = new Login($pdo); //Create new instance of login with database
+    $username = $_POST['username']; //Get username
+    $password = $_POST['password']; //Get password
 
     if($login->login($username, $password)){
-        echo "Login successful!";
+        echo "Login successful!"; //Prints the following if login is true
     }else{
-        echo "Login failed! Please try again!";
+        echo "Login failed! Please try again!"; //Print the following if login is false
     }
 }
 
-if(isset($_POST['register'])){
-    $register = new Register($pdo);
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+if(isset($_POST['register'])){ //Check for registration
+    $register = new Register($pdo); //Creat new instance of register with database
+    $username = $_POST['username']; //Get username
+    $password = $_POST['password']; //Get password
 
-    $register->register($username, $password);
-    echo "Registered successfully!";
+    $register->register($username, $password); //Registers account through method
+    echo "Registered successfully!"; //Prints the following message
 }
