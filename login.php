@@ -53,6 +53,7 @@ class Register{
     }
 }
 
+
 if(isset($_POST['login'])){ //Check for login
     $login = new Login($pdo); //Create new instance of login with database
     $username = $_POST['username']; //Get username
@@ -72,4 +73,10 @@ if(isset($_POST['register'])){ //Check for registration
 
     $register->register($username, $password); //Registers account through method
     echo "Registered successfully!"; //Prints the following message
+}
+
+if(isset($_GET['logout'])){
+    session_destroy();
+    echo "Logout successful!";
+    exit();
 }
