@@ -43,8 +43,9 @@ class Register{
         $user = $verify->fetch(PDO::FETCH_ASSOC); ;  //Fetch information from database
 
         if($user){
-            echo "Username already taken";
-            return; //Return the following print
+            header('Location: index.php?page=register');
+            echo "<script>alert('Username already taken!'); window.location.href='index.php';</script>";
+            exit();
         }
 
         $storePassword = password_hash($password, PASSWORD_DEFAULT);
