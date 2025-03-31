@@ -1,9 +1,9 @@
 <?php
 
 class Player{
-    private $playerHealth;
-    private $playerWallet;
-    private $spellType;
+    private $playerHealth; //Variable for player health
+    private $playerWallet; //Variable to hold money
+    private $spellType; //Variable to hold spell type
 
     public function __construct(){
         $this->playerHealth = 100;
@@ -38,18 +38,15 @@ class Player{
         $this->spellType = $spell;
     }
 
-    public function getPlayerHealth()
-    {
+    public function getPlayerHealth(){
         return $this->playerHealth;
     }
 
-    public function getPlayerWallet()
-    {
+    public function getPlayerWallet(){
         return $this->playerWallet;
     }
 
-    public function getSpellType()
-    {
+    public function getSpellType(){
         return $this->spellType;
     }
 }
