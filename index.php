@@ -6,6 +6,8 @@ include 'battle.php';
 
 $isLoggedIn = isset($_SESSION['user_id']);
 
+$name = isset($_GET['username']) ? $_GET['username'] : "Guest";
+
 $page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
 if($isLoggedIn && $page != 'game') {
@@ -41,7 +43,7 @@ if($isLoggedIn && $page != 'game') {
     </form>
     <a href="index.php">Back to login</a>
     <?php elseif($page == 'home'):?>
-    <h2>Welcome to The Forbidden Tower! <?=$_SESSION['username']?>!</h2>
+    <h2>Welcome to The Forbidden Tower! <?=$name?>!</h2>
     <p>Click play to start you adventure!</p>
     <a href ="index.php?page=game"><button>Play</button></a>
     <a href="login.php?logout=true"><button>Logout</button></a>
