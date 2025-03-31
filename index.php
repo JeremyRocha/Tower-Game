@@ -53,6 +53,7 @@ if($isLoggedIn && $page != 'game') {
     ?>
     <a href="index.php?page=home">Back to main screen</a>
     <?php endif; ?>
+a
 </body>
 </html>
 
