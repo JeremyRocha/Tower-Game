@@ -43,8 +43,7 @@ class Register{
         $user = $verify->fetch(PDO::FETCH_ASSOC); ;  //Fetch information from database
 
         if($user){
-            header('Location: index.php?page=register');
-            echo "<script>alert('Username already taken!'); window.location.href='index.php';</script>";
+            echo "<script>alert('Username already taken!'); window.location.href='index.php>page=register';</script>";
             exit();
         }
 
