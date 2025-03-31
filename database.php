@@ -12,3 +12,4 @@ try{
 }catch (PDOException $e){
     die("Connection failed: " . $e->getMessage()); //Display error
 }
+session_start(): Ignoring session_start() because a session is already active in C:\Users\user\Desktop\Georgian Year - 1\Semester 2\PhP\TowerGame\login.php on line 2
