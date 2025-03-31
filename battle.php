@@ -221,3 +221,6 @@ class Game {
         return $baseDamage; //Returns normal damage
     }
 }
+
+$game = new Game();
+$game->startGame();
