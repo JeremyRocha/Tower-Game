@@ -123,6 +123,54 @@ class Game {
         "Lightning" => "Earth",
         "Earth" => "Water",
         "Water" => "Fire"];
+    private $shopItems = [
+        "Potion" => 20,
+        "Tier 1 Spell" => 50,
+        "Tier 2 Spell" => 100,
+        "Tier 3 Spell" => 200,
+    ];
+    private $enemy;
+    private $round;
+    private $player;
+
+    public function __construct(){
+        $this->player = new Player();
+        $this->round = 1;
+    }
+
+    public function startGame(){
+        echo "Welcome to the Tower!";
+        $this->shop();
+        $this->determineRound();
+    }
+
+    public function shop(){
+        echo "Shop is open!";
+        echo "You have: " .$this->player->getPlayerWallet() . "gold.";
+
+        foreach ($this->shopItems as $item => $amount){
+            echo " $item: $amount gold";
+        }
+    }
+
+    public function determineRound(){
+        if($this->round > 5){
+            echo "You beat the boss and finished the game!";
+            return;
+        }
+        echo "Starting Round!";
+        $this->enemy = $this->generateEnemy($this->round);
+        $this->combat();
+    }
+
+    public function combat(){
+        echo "Your opponent is: " . get_class($this->enemy) . " with ". $this->enemy->getEnemyHealth() . " Health!";
+
+        while ($this->player->getPlayerHealth() > 0 && $this->enemy->getEnemyHealth() > 0){
+            echo "Your health: " . $this->player->getPlayerHealth();
+            echo "Enemy health: " . $this->enemy->getEnemyHealth();
+        }
+    }
 
     public function generateEnemy($round){ //Method for generating enemy
         $elements = ["Fire", "Wind", "Lightning", "Earth", "Water"]; //List of elements
