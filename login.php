@@ -22,8 +22,7 @@ class Login{
             header('Location: index.php?page=home');
             exit();
         }else{
-            header('Location: index.php');
-            echo "Login Failed";
+            echo "<script>alert('Login Failed! Please try again!'); window.location.href='index.php?page=login';</script>";
             exit();
         }
     }
@@ -43,7 +42,8 @@ class Register{
         $user = $verify->fetch(PDO::FETCH_ASSOC); ;  //Fetch information from database
 
         if($user){
-            echo "<script>alert('Username already taken!'); window.location.href='index.php>page=register';</script>";
+            echo "<script>alert('Username already taken!'); window.location.href='index.php?page=register';</script>";
+            //Prints out username already taken in window and redirects back to register
             exit();
         }
 
@@ -52,8 +52,9 @@ class Register{
         $verify->bindParam(':username', $username); //Bind username to database
         $verify->bindParam(':password', $storePassword); //Bind password to database
         $verify->execute(); //Executes the query
-        echo "Registered successfully! Please log in"; //Returns message
-        header('Location: index.php?page=login');
+        echo "<script>alert('Registration successful! Please Login'); window.location.href='index.php?page=login';</script>";
+        //Print message in pop window and redirect to login page
+
         exit();
     }
 }
