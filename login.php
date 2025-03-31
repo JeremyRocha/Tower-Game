@@ -1,5 +1,4 @@
 <?php
-session_start();
 include 'database.php'; //Includes logic for database
 
 class Login{
