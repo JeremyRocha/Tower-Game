@@ -135,7 +135,12 @@ class Game {
     }
 
     public function calculateDamage($playerSpell, $enemyElement){
-        $baseDamage = ($playerSpell["tier"] === 1) ? 10 : 20;
+        $baseDamage = match ($playerSpell["tier"]){
+            1 => 10,
+            2 => 20,
+            3 => 40,
+            default => 10
+        };
 
         if($this->elementWheel[$playerSpell["element"]] === $enemyElement){
             return $baseDamage * 2;
