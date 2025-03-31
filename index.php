@@ -6,7 +6,7 @@ include 'battle.php';
 
 $isLoggedIn = isset($_SESSION['user_id']);
 
-$name = isset($_GET['username']) ? $_GET['username'] : "Guest";
+$name = isset($_GET['username']) ? $_GET['username'] : "Guest"; #Hlep
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
