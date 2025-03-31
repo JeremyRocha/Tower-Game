@@ -22,7 +22,9 @@ class Login{
             header('Location: index.php?page=home');
             exit();
         }else{
+            header('Location: index.php');
             echo "Login Failed";
+            exit();
         }
     }
 }
@@ -57,12 +59,12 @@ class Register{
 
 
 if(isset($_POST['login'])){ //Check for login
-    $login = new Login($this->pdo);
+    $login = new Login($pdo);
     $login->login($_POST['username'], $_POST['password']);
 }
 
 if(isset($_POST['register'])){ //Check for registration
-    $register = new Register($this->pdo);
+    $register = new Register($pdo);
     $register->register($_POST['username'], $_POST['password']);
 }
 
