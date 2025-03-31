@@ -140,6 +140,8 @@ class Game {
 
     public function startGame(){
         echo "Welcome to the Tower!";
+
+        //press play to continue tbd
         $this->shop();
         $this->determineRound();
     }
@@ -169,6 +171,26 @@ class Game {
         while ($this->player->getPlayerHealth() > 0 && $this->enemy->getEnemyHealth() > 0){
             echo "Your health: " . $this->player->getPlayerHealth();
             echo "Enemy health: " . $this->enemy->getEnemyHealth();
+
+            //Button logic for attacking tbd
+
+            if($this->enemy->getEnemyHealth() <= 0){
+                echo "You defeated the enemy!";
+                $this->player->addMoney(50 * $this->round);
+                $this->round++;
+                $this->shop();
+                $this->determineRound();
+                return;
+            }
+
+            $enemyDamage = $this->enemy->attack();
+            $this->player->takingDamage($enemyDamage);
+            echo "The enemy dealt $enemyDamage damage!";
+
+            if($this->player->getPlayerHealth() <= 0){
+                echo "You been defeated!";
+                $this->startGame();
+            }
         }
     }
 
