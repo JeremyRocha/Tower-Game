@@ -222,5 +222,3 @@ class Game {
     }
 }
 
-$game = new Game();
-$game->startGame();

@@ -1,5 +1,4 @@
 <?php
-session_start(); //Start session
 include 'database.php'; //Includes logic for database
 
 class Login{
@@ -20,9 +19,10 @@ class Login{
         if($user && password_verify($password, $user['password'])){ //Check password verification
             $_SESSION['user_id'] = $user['id']; //Stores user id in session
             $_SESSION['username'] = $user['username']; //Store username in session
-            return true; //Returns true
+            header('Location: index.php?page=home');
+            exit();
         }else{
-            return false; //Returns false
+            echo "Login Failed";
         }
     }
 }
@@ -49,34 +49,25 @@ class Register{
         $verify->bindParam(':username', $username); //Bind username to database
         $verify->bindParam(':password', $storePassword); //Bind password to database
         $verify->execute(); //Executes the query
-        return "Registered successfully! Please log in"; //Returns message
+        echo "Registered successfully! Please log in"; //Returns message
+        header('Location: index.php');
+        exit();
     }
 }
 
 
 if(isset($_POST['login'])){ //Check for login
-    $login = new Login($pdo); //Create new instance of login with database
-    $username = $_POST['username']; //Get username
-    $password = $_POST['password']; //Get password
-
-    if($login->login($username, $password)){
-        echo "Login successful!"; //Prints the following if login is true
-    }else{
-        echo "Login failed! Please try again!"; //Print the following if login is false
-    }
+    $login = new Login($this->pdo);
+    $login->login($_POST['username'], $_POST['password']);
 }
 
 if(isset($_POST['register'])){ //Check for registration
-    $register = new Register($pdo); //Creat new instance of register with database
-    $username = $_POST['username']; //Get username
-    $password = $_POST['password']; //Get password
-
-    $register->register($username, $password); //Registers account through method
-    echo "Registered successfully!"; //Prints the following message
+    $register = new Register($this->pdo);
+    $register->register($_POST['username'], $_POST['password']);
 }
 
 if(isset($_GET['logout'])){
     session_destroy(); //Destroys session
-    echo "Logout successful!"; //Prints out message
+    header("Location: index.php");
     exit(); //Exit program
 }
