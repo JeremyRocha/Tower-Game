@@ -76,7 +76,7 @@ if(isset($_POST['register'])){ //Check for registration
 }
 
 if(isset($_GET['logout'])){
-    session_destroy();
-    echo "Logout successful!";
-    exit();
+    session_destroy(); //Destroys session
+    echo "Logout successful!"; //Prints out message
+    exit(); //Exit program
 }
