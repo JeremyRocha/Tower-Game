@@ -43,7 +43,8 @@ class Register{
         $user = $verify->fetch(PDO::FETCH_ASSOC); ;  //Fetch information from database
 
         if($user){
-            return "Username already taken"; //Return the following print
+            echo "Username already taken";
+            return; //Return the following print
         }
 
         $storePassword = password_hash($password, PASSWORD_DEFAULT);
@@ -52,7 +53,7 @@ class Register{
         $verify->bindParam(':password', $storePassword); //Bind password to database
         $verify->execute(); //Executes the query
         echo "Registered successfully! Please log in"; //Returns message
-        header('Location: index.php');
+        header('Location: index.php?page=login');
         exit();
     }
 }
