@@ -6,7 +6,7 @@ class Player{
     private $spellType; //Variable to hold spell type
 
     public function __construct(){
-        $this->playerHealth = 100;
+        $this->playerHealth = 100; //
         $this->playerWallet = 100;
         $this->spellType = 0;
     }
@@ -120,6 +120,19 @@ class Game {
         "Lightning" => "Earth",
         "Earth" => "Water",
         "Water" => "Fire"];
+
+    public function generateEnemy($round){
+        $elements = ["Fire", "Wind", "Lightning", "Earth", "Water"];
+        $randomElement = $elements[array_rand($elements)];
+
+        if($round <= 2){
+            return new NormalEnemy($randomElement);
+        }elseif ($round <= 4){
+            return new EliteEnemy($randomElement);
+        }else{
+            return new Boss($randomElement);
+        }
+    }
 
     public function calculateDamage($playerSpell, $enemyElement){
         $baseDamage = ($playerSpell["tier"] === 1) ? 10 : 20;
