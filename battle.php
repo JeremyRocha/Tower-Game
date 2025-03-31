@@ -85,7 +85,7 @@ class NormalEnemy extends Enemy{
         return 10; //Enemy deals 10 damage
     }
 }
-a
+
 class EliteEnemy extends Enemy{
     public function __construct($element){ //Default Constructor
         parent::__construct(200, $element); //Calls parent constructor with given parameters
