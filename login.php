@@ -1,5 +1,6 @@
 <?php
 include 'database.php'; //Includes logic for database
+session_start();
 class Login{
     private $pdo; //Variable for database
 
@@ -70,7 +71,7 @@ if(isset($_POST['register'])){ //Check for registration
 }
 
 if(isset($_GET['logout'])){
-    session_destroy(); //Destroys session
+    session_destroy();
     header("Location: index.php?page=login");
     exit(); //Exit program
 }
