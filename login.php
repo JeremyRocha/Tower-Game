@@ -1,6 +1,5 @@
 <?php
 include 'database.php'; //Includes logic for database
-
 class Login{
     private $pdo; //Variable for database
 
