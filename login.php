@@ -71,6 +71,7 @@ if(isset($_POST['register'])){ //Check for registration
 }
 
 if(isset($_GET['logout'])){
+    session_unset();
     session_destroy();
     header("Location: index.php?page=login");
     exit(); //Exit program
