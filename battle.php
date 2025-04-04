@@ -198,10 +198,6 @@ class Game {
                     }
                 }
             }
-
-        foreach ($this->shopItems as $item => $amount){
-            echo " $item: $amount gold";
-        }
     }
 
     public function determineRound(){
