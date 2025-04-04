@@ -131,9 +131,31 @@ class Game {
         "Water" => "Fire"];
     private $shopItems = [
         "Potion" => 20,
-        "Tier 1 Spell" => 50,
-        "Tier 2 Spell" => 100,
-        "Tier 3 Spell" => 200,
+        "Fire" => [
+            "Tier 1 Spell" => 50,
+            "Tier 2 Spell" => 100,
+            "Tier 3 Spell" => 200,
+        ],
+        "Wind" => [
+            "Tier 1 Spell" => 50,
+            "Tier 2 Spell" => 100,
+            "Tier 3 Spell" => 200,
+        ],
+        "Lightning" => [
+            "Tier 1 Spell" => 50,
+            "Tier 2 Spell" => 100,
+            "Tier 3 Spell" => 200,
+        ],
+        "Earth" => [
+            "Tier 1 Spell" => 50,
+            "Tier 2 Spell" => 100,
+            "Tier 3 Spell" => 200,
+        ],
+        "Water" => [
+            "Tier 1 Spell" => 50,
+            "Tier 2 Spell" => 100,
+            "Tier 3 Spell" => 200,
+        ]
     ];
     private $enemy;
     private $round;
@@ -153,8 +175,25 @@ class Game {
     }
 
     public function shop(){
-        echo "Shop is open!";
-        echo "You have: " .$this->player->getPlayerWallet() . "gold.";
+            if($_SERVER['REQUEST_METHOD'] == "POST"){
+                $selectedItems = $_POST["items"] ??[];
+
+                foreach($selectedItems as $item){
+                    $price = $this->shopItems[$item];
+
+                    if($this->player->getPlayerWallet() >= $price){
+                        $this->player->spendMoney($price);
+                        echo "You bought!";
+
+                       switch ($item){
+                           case "Potion":
+                               $this->player->addPotion(1);
+                               break;
+                            case "Tier 1 Spell":
+                       }
+                    }
+                }
+            }
 
         foreach ($this->shopItems as $item => $amount){
             echo " $item: $amount gold";
