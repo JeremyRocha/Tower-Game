@@ -179,7 +179,6 @@ class Game {
     public function startGame(){
         echo "Welcome to the Tower!";
 
-        //press play to continue tbd
         $this->shop();
         $this->determineRound();
     }
@@ -196,7 +195,7 @@ class Game {
                         if ($this->player->getPlayerWallet() >= $price) {
                             $this->player->spendMoney($price);
 
-                            if ($item = "Potion") {
+                            if ($item == "Potion") {
                                 $this->player->addPotion(1);
                             } else {
                                 list($element, $tier) = explode(" ", $item);
@@ -230,8 +229,6 @@ class Game {
             echo "Your health: " . $this->player->getPlayerHealth();
             echo "Enemy health: " . $this->enemy->getEnemyHealth();
 
-            //Button logic for attacking tbd
-
             if($this->enemy->getEnemyHealth() <= 0){
                 echo "You defeated the enemy!";
                 $this->player->addMoney(50 * $this->round);
@@ -241,9 +238,21 @@ class Game {
                 return;
             }
 
-            $enemyDamage = $this->enemy->attack();
-            $this->player->takingDamage($enemyDamage);
-            echo "The enemy dealt $enemyDamage damage!";
+            if($_POST['attack']){
+                $playerSpell = [$this->player->getSpellTier(), $this->player->getElement()];
+                $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
+                $this->enemy->takeDamage($playerDamage);
+                echo " You dealt damage";
+                $enemyDamage = $this->enemy->attack();
+                $this->player->takingDamage($enemyDamage);
+                echo "Enemy dealt damage";
+            }elseif ($_POST['Potion']){
+                if($this->player->getHealthPotion() > 0){
+                    $this->player->healing(30);
+                }else{
+                    echo "No potions";
+                }
+            }
 
             if($this->player->getPlayerHealth() <= 0){
                 echo "You been defeated!";
