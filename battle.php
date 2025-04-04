@@ -239,13 +239,17 @@ class Game {
             }
 
             if($_POST['attack']){
-                $playerSpell = [$this->player->getSpellTier(), $this->player->getElement()];
-                $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
-                $this->enemy->takeDamage($playerDamage);
-                echo " You dealt damage";
-                $enemyDamage = $this->enemy->attack();
-                $this->player->takingDamage($enemyDamage);
-                echo "Enemy dealt damage";
+                if($this->enemy instanceof Boss){
+
+                }else {
+                    $playerSpell = [$this->player->getSpellTier(), $this->player->getElement()];
+                    $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
+                    $this->enemy->takeDamage($playerDamage);
+                    echo " You dealt damage";
+                    $enemyDamage = $this->enemy->attack();
+                    $this->player->takingDamage($enemyDamage);
+                    echo "Enemy dealt damage";
+                }
             }elseif ($_POST['Potion']){
                 if($this->player->getHealthPotion() > 0){
                     $this->player->healing(30);
