@@ -246,9 +246,14 @@ class Game {
                     $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
                     $this->enemy->takeDamage($playerDamage);
                     echo " You dealt damage";
-                    $enemyDamage = $this->enemy->attack();
-                    $this->player->takingDamage($enemyDamage);
-                    echo "Enemy dealt damage";
+                    if($this->enemy instanceof EliteEnemy) {
+                        $enemyDamage = $this->enemy->attack();
+                        $this->player->takingDamage($enemyDamage);
+                        echo "Enemy dealt damage";
+                    }else{
+                        $enemyDamage = $this->enemy->normalenemy->attack();
+                        $this->player->takingDamage($enemyDamage);
+                    }
                 }
             }elseif ($_POST['Potion']){
                 if($this->player->getHealthPotion() > 0){
