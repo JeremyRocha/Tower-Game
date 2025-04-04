@@ -39,12 +39,12 @@ if($isLoggedIn && $page != 'game') {
         <button type="submit" name="register">Register</button>
     </form>
     <a href="index.php">Back to login</a>
-    <?php elseif($page == 'home'):?>
+    <?php elseif($isLoggedIn && $page == 'home'):?>
     <h2>Welcome to The Forbidden Tower! <?=$_SESSION['username']?>!</h2>
     <p>Click play to start you adventure!</p>
     <a href ="index.php?page=game"><button>Play</button></a>
     <a href="login.php?logout=true"><button>Logout</button></a>
-    <?php elseif($page == 'game'):?>
+    <?php elseif($isLoggedIn && $page == 'game'):?>
     <h2>Good luck <?=$_SESSION['username']?>!</h2>
     <?php
     $game = new Game();
