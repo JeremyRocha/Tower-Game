@@ -260,6 +260,7 @@ class Game {
             }elseif (isset($_POST['Potion'])){
                 if($this->player->getHealthPotion() > 0){
                     $this->player->healing(30);
+                    $this->player->addPotion(-1);
                 }else{
                     echo "No potions";
                 }
