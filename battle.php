@@ -10,7 +10,8 @@ class Player{
     public function __construct(){ //Default Constructor
         $this->playerHealth = 100; //Set player health to 100
         $this->playerWallet = 100; //Give player 100 currency
-        $this->spellType = null; //Set spell type to null till spell is bought
+        $this->spellTier = null; //Set spell type to null till spell is bought
+        $this->element = null;
         $this->healthPotion = 0;
     }
 
@@ -237,7 +238,7 @@ class Game {
                 return;
             }
 
-            if($_POST['attack']){
+            if(isset($_POST['attack'])){
                 if($this->enemy instanceof Boss){
                     $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
                     if($this->enemy->elementCheck($playerSpell['element'], $this->elementWheel)){
@@ -256,7 +257,7 @@ class Game {
                 $enemyDamage = $this->enemy->attack();
                 $this->player->takingDamage($enemyDamage);
                 echo "Enemy dealt damage";
-            }elseif ($_POST['Potion']){
+            }elseif (isset($_POST['Potion'])){
                 if($this->player->getHealthPotion() > 0){
                     $this->player->healing(30);
                 }else{
