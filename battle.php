@@ -41,6 +41,10 @@ class Player{
         $this->spellType = $spell; //Equips spell
     }
 
+    public function addPotion($amount){
+        $this->healthPotion += $amount;
+    }
+
     public function getPlayerHealth(){ //Getter for player health
         return $this->playerHealth; //Return the players health
     }
