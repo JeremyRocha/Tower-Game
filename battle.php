@@ -260,8 +260,7 @@ class Game {
 
             if($this->player->getPlayerHealth() <= 0){
                 echo "You been defeated!";
-                header("Location: index.php?page=login");
-                $game = new Game();
+                header("Location: index.php?page=home");
             }
         }
     }
