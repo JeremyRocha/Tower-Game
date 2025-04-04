@@ -4,11 +4,13 @@ class Player{
     private $playerHealth; //Variable for player health
     private $playerWallet; //Variable to hold money
     private $spellType; //Variable to hold spell type
+    private $healthPotion;
 
     public function __construct(){ //Default Constructor
         $this->playerHealth = 100; //Set player health to 100
         $this->playerWallet = 100; //Give player 100 currency
         $this->spellType = null; //Set spell type to null till spell is bought
+        $this->healthPotion = 0;
     }
 
     public function takingDamage($damage){ //Method for player taking damage
@@ -49,6 +51,10 @@ class Player{
 
     public function getSpellType(){ //Getter for spell
         return $this->spellType; //Returns spell type
+    }
+
+    public function getHealthPotion(){
+        return $this->healthPotion;
     }
 }
 abstract class Enemy{
