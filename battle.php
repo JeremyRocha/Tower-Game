@@ -198,8 +198,10 @@ class Game {
                             if ($item == "Potion") {
                                 $this->player->addPotion(1);
                             } else {
-                                list($element, $tier) = explode(" ", $item);
-                                $this->player->equipSpell(["element" => $element, "tier" => (int)$tier]);
+                                $split = explode(" ", $item);
+                                $element = $split[0];
+                                $tier = (int)$split[2];
+                                $this->player->equipSpell(["element" => $element, "tier" => $tier]);
                             }
                         } else {
                             echo "You don't have enough money!";
