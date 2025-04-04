@@ -117,9 +117,8 @@ class Boss extends Enemy{
         parent::__construct(400, $element); //Calls parent constructor with given parameters
     }
 
-    public function takingDamage($damage, $playerElement, $elementWheel){ //Override taking damage
+    public function elementCheck($playerElement, $elementWheel){ //Override taking damage
         if($elementWheel[$playerElement] === $this->enemyElement){ //Only takes damage if using right element
-            $this->enemyHealth -= $damage; //Calculates damage taken
             return true; //Return true
         }
         return false; //Return false
@@ -240,21 +239,23 @@ class Game {
 
             if($_POST['attack']){
                 if($this->enemy instanceof Boss){
-
+                    $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
+                    if($this->enemy->elementCheck($playerSpell['element'], $this->elementWheel)){
+                        $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
+                        $this->enemy->takeDamage($playerDamage);
+                        echo "You dealt damage";
+                    }else{
+                        echo "No Damage";
+                    }
                 }else {
-                    $playerSpell = [$this->player->getSpellTier(), $this->player->getElement()];
+                    $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
                     $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
                     $this->enemy->takeDamage($playerDamage);
                     echo " You dealt damage";
-                    if($this->enemy instanceof EliteEnemy) {
-                        $enemyDamage = $this->enemy->attack();
-                        $this->player->takingDamage($enemyDamage);
-                        echo "Enemy dealt damage";
-                    }else{
-                        $enemyDamage = $this->enemy->normalenemy->attack();
-                        $this->player->takingDamage($enemyDamage);
-                    }
                 }
+                $enemyDamage = $this->enemy->attack();
+                $this->player->takingDamage($enemyDamage);
+                echo "Enemy dealt damage";
             }elseif ($_POST['Potion']){
                 if($this->player->getHealthPotion() > 0){
                     $this->player->healing(30);
