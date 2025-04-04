@@ -194,6 +194,14 @@ class Game {
                                $this->player->addPotion(1);
                                break;
                             case "Tier 1 Spell":
+                                $this->player-> equipSpell(["element" => "Fire", "tier" => 1]);
+                                break;
+                           case "Tier 2 Spell":
+                               $this->player-> equipSpell(["element" => "Fire", "tier" => 2]);
+                               break;
+                           case "Tier 3 Spell":
+                               $this->player-> equipSpell(["element" => "Fire", "tier" => 3]);
+                               break;
                        }
                     }
                 }
