@@ -3,7 +3,8 @@
 class Player{
     private $playerHealth; //Variable for player health
     private $playerWallet; //Variable to hold money
-    private $spellType; //Variable to hold spell type
+    private $spellTier;//Variable to hold spell tier
+    private $element;
     private $healthPotion;
 
     public function __construct(){ //Default Constructor
@@ -38,7 +39,8 @@ class Player{
     }
 
     public function equipSpell($spell){ //Method for equipping spell
-        $this->spellType = $spell; //Equips spell
+        $this->spellTier = $spell['tier']; //Determine spell tier
+        $this->element = $spell['element']; //Determine element
     }
 
     public function addPotion($amount){
@@ -53,8 +55,12 @@ class Player{
         return $this->playerWallet; //Returns amount in wallet
     }
 
-    public function getSpellType(){ //Getter for spell
-        return $this->spellType; //Returns spell type
+    public function getSpellTier(){ //Getter for spell
+        return $this->spellTier; //Returns spell type
+    }
+
+    public function getElement(){
+        return $this->element;
     }
 
     public function getHealthPotion(){
@@ -183,27 +189,26 @@ class Game {
                 $selectedItems = $_POST["items"] ??[];
 
                 foreach($selectedItems as $item){
-                    $price = $this->shopItems[$item];
 
-                    if($this->player->getPlayerWallet() >= $price){
-                        $this->player->spendMoney($price);
-                        echo "You bought!";
+                    if(array_key_exists($item, $this->shopItems)) {
+                        $price = $this->shopItems[$item];
 
-                       switch ($item){
-                           case "Potion":
-                               $this->player->addPotion(1);
-                               break;
-                            case "Tier 1 Spell":
-                                $this->player-> equipSpell(["element" => "Fire", "tier" => 1]);
-                                break;
-                           case "Tier 2 Spell":
-                               $this->player-> equipSpell(["element" => "Fire", "tier" => 2]);
-                               break;
-                           case "Tier 3 Spell":
-                               $this->player-> equipSpell(["element" => "Fire", "tier" => 3]);
-                               break;
-                       }
+                        if ($this->player->getPlayerWallet() >= $price) {
+                            $this->player->spendMoney($price);
+
+                            if ($item = "Potion") {
+                                $this->player->addPotion(1);
+                            } else {
+                                list($element, $tier) = explode(" ", $item);
+                                $this->player->equipSpell(["element" => $element, "tier" => (int)$tier]);
+                            }
+                        } else {
+                            echo "You don't have enough money!";
+                        }
+                    } else {
+                        echo "No item";
                     }
+
                 }
             }
     }
