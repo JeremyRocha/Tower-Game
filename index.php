@@ -51,7 +51,7 @@ if($isLoggedIn && $page != 'game') {
     $game->startGame();
     ?>
     <a href="index.php?page=home">Back to main screen</a>
-    <?php endif; ?>
+    <?php endif;?>
 </body>
 </html>
 
