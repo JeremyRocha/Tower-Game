@@ -26,16 +26,24 @@ if($isLoggedIn && $page != 'game') {
     <?php if($page == 'login'):?>
     <h2>Login</h2>
     <form method="post" action="login.php">
-        <input type="text" name="username" placeholder="Enter Username" required><br>
-        <input type="password" name="password" placeholder="Enter Password" required><br>
+        <label>
+            <input type="text" name="username" placeholder="Enter Username" required>
+        </label><br>
+        <label>
+            <input type="password" name="password" placeholder="Enter Password" required>
+        </label><br>
         <button type="submit" name="login">Login</button>
     </form>
     <a href="index.php?page=register">Register</a>
     <?php elseif($page == 'register'):?>
     <h2>Register</h2>
     <form method="post" action="login.php">
-        <input type="text" name="username" placeholder="Enter Username" required><br>
-        <input type="password" name="password" placeholder="Enter Password" required><br>
+        <label>
+            <input type="text" name="username" placeholder="Enter Username" required>
+        </label><br>
+        <label>
+            <input type="password" name="password" placeholder="Enter Password" required>
+        </label><br>
         <button type="submit" name="register">Register</button>
     </form>
     <a href="index.php">Back to login</a>
@@ -65,7 +73,9 @@ if($isLoggedIn && $page != 'game') {
             <tr>
                 <td> Potion </td>
                 <td> 20</td>
-                <td><input type="checkbox" name="items[]" value="Potion"></td>
+                <td><label>
+                        <input type="checkbox" name="items[]" value="Potion">
+                    </label></td>
             </tr>
             <?php foreach ($shopItems as $element => $tier){
                 foreach ($tier as $item => $price){
