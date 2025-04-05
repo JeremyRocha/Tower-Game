@@ -52,6 +52,7 @@ if($isLoggedIn && $page != 'game') {
         $shopItems = $game->getShopItems();
     ?>
     <h2>Tower Shop</h2>
+    <form method="post" action="battle.php"
     <table>
         <thead>
             <tr>
@@ -73,7 +74,7 @@ if($isLoggedIn && $page != 'game') {
                            <td>$name</td>
                            <td>$price</td>
                            <td><input type='checkbox' name='items[]' value='$name'></td>
-                           </tr>;
+                           </tr>";
                 }
             }
           ?>
