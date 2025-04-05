@@ -35,7 +35,7 @@ class Player{
             $this->playerWallet -= $amount; //Take away money spent
             return true; //Return true
         }
-        echo "You don't have enough money!"; //Prints out message
+
         return false; //Returns false if player doesn't have enough money
     }
 
@@ -184,31 +184,39 @@ class Game {
     }
 
     public function shop(){
-            if($_SERVER['REQUEST_METHOD'] == "POST"){
-                $selectedItems = $_POST["items"] ??[];
 
-                foreach($selectedItems as $item){
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $selectedItems = $_POST["items"] ?? [];
 
-                    if(array_key_exists($item, $this->shopItems)) {
-                        $price = $this->shopItems[$item];
+            foreach ($selectedItems as $item) {
 
-                        if ($item == "Potion") {
-                            $this->player->addPotion(1);
-                        } else {
-                            $split = explode(" ", $item);
-                            $element = $split[0];
-                            $tier = (int)$split[2];
-                            $this->player->equipSpell(["element" => $element, "tier" => $tier]);
-                        }
-                        $this->player->spendMoney($price);
+                if ($item == "Potion") {
+                    $price = $this->shopItems[$item];
+                    if ($this->player->spendMoney($price)) {
+                        $this->player->addPotion(1);
+                        echo "Potion bought";
                     } else {
-                        echo "No item";
+                        echo "You don't have enough money!";
                     }
+                } else {
+                    $split = explode(" ", $item);
+                    $element = $split[0];
+                    $spellAccess = $split[1] . " " . $split[2] . " " . $split[3];
+                    $tier = (int)$split[2];
 
+                    if (isset($this->shopItems[$element][$spellAccess])) {
+                        $price = $this->shopItems[$element][$spellAccess];
+                        if ($this->player->spendMoney($price)) {
+                            $this->player->equipSpell(["element" => $element, "tier" => $tier]);
+                            echo "bought spell";
+                        }
+                    }else{
+                        echo "No spell";
+                    }
                 }
             }
+        }
     }
-
     public function determineRound(){
         if($this->round > 5){
             echo "You beat the boss and finished the game!";
