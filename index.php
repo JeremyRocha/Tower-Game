@@ -59,7 +59,6 @@ if($isLoggedIn && $page != 'game') {
         $game->startGame();
         $shopItems = $game->getShopItems();
     ?>
-    <h2>Tower Shop</h2>
     <form method="post" action="battle.php">
     <table>
         <thead>
