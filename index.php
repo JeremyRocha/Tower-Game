@@ -60,7 +60,7 @@ if($isLoggedIn && $page != 'game') {
         $shopItems = $game->getShopItems();
     ?>
     <h2>Tower Shop</h2>
-    <form method="post" action="battle.php"
+    <form method="post" action="battle.php">
     <table>
         <thead>
             <tr>
@@ -90,6 +90,7 @@ if($isLoggedIn && $page != 'game') {
           ?>
         </tbody>
     </table>
+    </form>
     <a href="index.php?page=home">Back to main screen</a>
     <?php elseif($isLoggedIn && $page == 'game'):?>
     <?php $this->game->determineRound();?>
