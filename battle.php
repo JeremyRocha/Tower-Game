@@ -177,10 +177,12 @@ class Game {
     }
 
     public function startGame(){
-        echo "Welcome to the Tower!";
-
-        $this->shop();
-        $this->determineRound();
+        if(isset($_POST['buy items']) || isset($_POST['battle start'])) {
+            $this->shop();
+            if (isset($_POST['battle start'])) {
+                $this->determineRound();
+            }
+        }
     }
 
     public function shop(){
@@ -239,7 +241,6 @@ class Game {
                 $this->player->addMoney(50 * $this->round);
                 $this->round++;
                 $this->shop();
-                $this->determineRound();
                 return;
             }
 
@@ -303,6 +304,10 @@ class Game {
             return $baseDamage * 2; //Return double damage if enemy is weak to element
         }
         return $baseDamage; //Returns normal damage
+    }
+
+    public function getShopItems(): array{
+        return $this->shopItems;
     }
 }
 

@@ -42,15 +42,46 @@ if($isLoggedIn && $page != 'game') {
     <?php elseif($isLoggedIn && $page == 'home'):?>
     <h2>Welcome to The Forbidden Tower! <?=$_SESSION['username']?>!</h2>
     <p>Click play to start you adventure!</p>
-    <a href ="index.php?page=game"><button>Play</button></a>
+    <a href ="index.php?page=shop"><button>Play</button></a>
     <a href="login.php?logout=true"><button>Logout</button></a>
-    <?php elseif($isLoggedIn && $page == 'game'):?>
+    <?php elseif($isLoggedIn && $page == 'shop'):?>
     <h2>Good luck <?=$_SESSION['username']?>!</h2>
     <?php
-    $game = new Game();
-    $game->startGame();
+        $game = new Game();
+        $game->startGame();
+        $shopItems = $game->getShopItems();
     ?>
+    <h2>Tower Shop</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Select</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> Potion </td>
+                <td> 20</td>
+                <td><input type="checkbox" name="items[]" value="Potion"></td>
+            </tr>
+            <?php foreach ($shopItems as $element => $tier){
+                foreach ($tier as $item => $price){
+                    $name = $element . " " . $item;
+                    echo "<tr>
+                           <td>$name</td>
+                           <td>$price</td>
+                           <td><input type='checkbox' name='items[]' value='$name'></td>
+                           </tr>;
+                }
+            }
+          ?>
+        </tbody>
+    </table>
     <a href="index.php?page=home">Back to main screen</a>
+    <?php elseif($isLoggedIn && $page == 'game'):?>
+    <?php $this->game->determineRound();?>
     <?php endif;?>
 </body>
 </html>
