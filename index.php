@@ -3,13 +3,11 @@ include 'database.php';
 include 'login.php';
 include 'battle.php';
 
-$isLoggedIn = isset($_SESSION['user_id']);
+
+$isLoggedIn = isset($_GET['user_id']);
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'login';
 
-if($isLoggedIn && $page != 'game') {
-    $page = 'home';
-}
 ?>
 
 <!doctype html>
@@ -47,12 +45,12 @@ if($isLoggedIn && $page != 'game') {
         <button type="submit" name="register">Register</button>
     </form>
     <a href="index.php">Back to login</a>
-    <?php elseif($isLoggedIn && $page == 'home'):?>
-    <h2>Welcome to The Forbidden Tower! <?=$_SESSION['username']?>!</h2>
+    <?php elseif($page == 'home'):?>
+    <h2>Welcome to The Forbidden Tower! Name Here!</h2>
     <p>Click play to start you adventure!</p>
     <a href ="index.php?page=shop"><button>Play</button></a>
     <a href="login.php?logout=true"><button>Logout</button></a>
-    <?php elseif($isLoggedIn && $page == 'shop'):?>
+    <?php elseif($page == 'shop'):?>
     <h2>Good luck <?=$_SESSION['username']?>!</h2>
     <?php
         $game = new Game();
@@ -91,7 +89,7 @@ if($isLoggedIn && $page != 'game') {
     </table>
     </form>
     <a href="index.php?page=home">Back to main screen</a>
-    <?php elseif($isLoggedIn && $page == 'game'):?>
+    <?php elseif($page == 'game'):?>
     <?php $this->game->determineRound();?>
     <?php endif;?>
 </body>

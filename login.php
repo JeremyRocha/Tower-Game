@@ -1,6 +1,5 @@
 <?php
 include 'database.php'; //Includes logic for database
-session_start();
 class Login{
     private $pdo; //Variable for database
 
@@ -17,6 +16,7 @@ class Login{
         $user = $verify->fetch(PDO::FETCH_ASSOC);  //Fetch information from database
 
         if($user && password_verify($password, $user['password'])){ //Check password verification
+            session_start();
             $_SESSION['user_id'] = $user['id']; //Stores user id in session
             $_SESSION['username'] = $user['username']; //Store username in session
             header('Location: index.php?page=home');
@@ -30,6 +30,7 @@ class Login{
 
 class Register{
     private $pdo; //Store database connection
+
 
     public function __construct($pdo){ //Default Constructor
         $this->pdo = $pdo; //Stores database
@@ -71,7 +72,6 @@ if(isset($_POST['register'])){ //Check for registration
 }
 
 if(isset($_GET['logout'])){
-    session_unset();
     session_destroy();
     header("Location: index.php?page=login");
     exit(); //Exit program
