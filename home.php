@@ -1,4 +1,6 @@
-
+<?php session_start();
+$username = $_SESSION['username'];
+?>
 <!doctype html>
 <html lang ="en">
 <head>
@@ -10,7 +12,7 @@
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-<h2>Welcome to The Forbidden Tower! Name Here!</h2>
+<h2>Welcome to The Forbidden Tower! <?php echo"$username"?></h2>
     <p>Click play to start you adventure!</p>
     <form method="post">
         <button type="submit" name='play'>Play</button>
