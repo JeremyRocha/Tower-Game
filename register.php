@@ -25,7 +25,7 @@ class Register{
         $verify->bindParam(':username', $username); //Bind username to database
         $verify->bindParam(':password', $storePassword); //Bind password to database
         $verify->execute(); //Executes the query
-        echo "<script>alert('Registration successful! Please Login'); window.location.href='login.php;</script>";
+        echo "<script>alert('Registration successful! Please Login'); window.location.href='login.php';</script>";
         //Print message in pop window and redirect to login page
 
     }

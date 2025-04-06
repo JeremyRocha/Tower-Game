@@ -176,14 +176,6 @@ class Game {
         $this->round = 1;
     }
 
-    public function startGame(){
-        if(isset($_POST['buy items']) || isset($_POST['battle start'])) {
-            $this->shop();
-            if (isset($_POST['battle start'])) {
-                $this->determineRound();
-            }
-        }
-    }
 
     public function shop(){
 
@@ -275,7 +267,7 @@ class Game {
 
             if($this->player->getPlayerHealth() <= 0){
                 echo "You been defeated!";
-                header("Location: index.php?page=home");
+                header("Location: home.php");
             }
         }
     }
