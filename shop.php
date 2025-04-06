@@ -111,6 +111,8 @@ Class Shop{
     </table>
     <button type="submit" name="items">Purchase</button>
 </form>
+<a href="home.php">Return to home</a>
+<a href="battle.php">Continue to game</a>
 </body>
 </html>
 <?php
