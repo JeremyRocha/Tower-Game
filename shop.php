@@ -30,6 +30,10 @@ Class Shop{
         ]
     ];
 
+    public function __construct($player){
+
+    }
+
     public function purchase(){
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $selectedItems = $_POST["items"] ?? [];
