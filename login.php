@@ -16,59 +16,54 @@ class Login{
         $user = $verify->fetch(PDO::FETCH_ASSOC);  //Fetch information from database
 
         if($user && password_verify($password, $user['password'])){ //Check password verification
-            session_start();
             $_SESSION['user_id'] = $user['id']; //Stores user id in session
             $_SESSION['username'] = $user['username']; //Store username in session
-            header('Location: index.php?page=home');
+            header('Location: home.php');
             exit();
         }else{
-            echo "<script>alert('Login Failed! Please try again!'); window.location.href='index.php?page=login';</script>";
-            exit();
+            echo "<script>alert('Login Failed! Please try again!'); window.location.href='login.php';</script>";
+
+            $this->showForm();
         }
+    }
+
+    public function showForm(){
+       ?>
+<!doctype html>
+<html lang ="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content="width=device-width, initial-scale =1">
+    <meta name ="robots" content="noindex, nofollow">
+    <meta name ="description" content="TowerGame">
+    <title>Tower Game</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="post" action="login.php">
+        <label>
+            <input type="text" name="username" placeholder="Enter Username" required>
+        </label><br>
+        <label>
+            <input type="password" name="password" placeholder="Enter Password" required>
+        </label><br>
+        <button type="submit" name="login">Login</button>
+    </form>
+    <a href="register.php">Register</a>
+</body>
+</html>
+<?php
     }
 }
 
-class Register{
-    private $pdo; //Store database connection
 
+$login = new Login($pdo);
 
-    public function __construct($pdo){ //Default Constructor
-        $this->pdo = $pdo; //Stores database
-    }
-
-    public function register($username, $password){ //Method for registration
-        $verify = $this->pdo->prepare("SELECT * FROM users WHERE username = :username"); //Prepare query
-        $verify->bindParam(':username', $username); //Bind username to database
-        $verify->execute(); //Executes the query
-        $user = $verify->fetch(PDO::FETCH_ASSOC); ;  //Fetch information from database
-
-        if($user){
-            echo "<script>alert('Username already taken!'); window.location.href='index.php?page=register';</script>";
-            //Prints out username already taken in window and redirects back to register
-            exit();
-        }
-
-        $storePassword = password_hash($password, PASSWORD_DEFAULT);
-        $verify = $this->pdo->prepare("INSERT INTO users (username, password) VALUES (:username, :password)"); //Prepare query
-        $verify->bindParam(':username', $username); //Bind username to database
-        $verify->bindParam(':password', $storePassword); //Bind password to database
-        $verify->execute(); //Executes the query
-        echo "<script>alert('Registration successful! Please Login'); window.location.href='index.php?page=login';</script>";
-        //Print message in pop window and redirect to login page
-
-        exit();
-    }
-}
-
-
-if(isset($_POST['login'])){ //Check for login
-    $login = new Login($pdo);
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])){
     $login->login($_POST['username'], $_POST['password']);
-}
-
-if(isset($_POST['register'])){ //Check for registration
-    $register = new Register($pdo);
-    $register->register($_POST['username'], $_POST['password']);
+}else{
+    $login->showForm();
 }
 
 if(isset($_GET['logout'])){

@@ -311,4 +311,9 @@ class Game {
         return $this->shopItems;
     }
 }
+if(isset($_POST['items'])){ //Check for login
+    game->shop();
+    header("Location: index.php?page=game");
+    exit;
 
+}
