@@ -29,9 +29,10 @@ Class Shop{
             "Tier 3 Spell" => 200,
         ]
     ];
+    private $player;
 
     public function __construct($player){
-
+        $this->player = $player;
     }
 
     public function purchase(){
@@ -122,10 +123,16 @@ Class Shop{
 <?php
     }
 }
+session_start();
 
-$shop = new Shop();
-if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items'])){
-    $shop->purchase();
+if(isset($_SESSION['username'])){
+    $player = $_SESSION['username'];
+    $shop = new Shop($player);
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items'])){
+        $shop->purchase();
+    }else{
+        $shop->showShop();
+    }
 }else{
-    $shop->showShop();
+    echo"No player";
 }
