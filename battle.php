@@ -171,7 +171,6 @@ class Game {
                 echo "You defeated the enemy!";
                 $this->player->addMoney(50 * $this->round);
                 $this->round++;
-                $this->shop();
                 $this->determineRound();
                 return;
             }
