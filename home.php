@@ -12,7 +12,7 @@
 <body>
 <h2>Welcome to The Forbidden Tower! Name Here!</h2>
     <p>Click play to start you adventure!</p>
-    <form>
+    <form method="post">
         <button type="submit" name='play'>Play</button>
         <button type="submit" name='logout'>Logout</button>
     </form>
