@@ -134,5 +134,5 @@ if(isset($_SESSION['username'])){
         $shop->showShop();
     }
 }else{
-    echo"No player";
+    echo"Invalid Session";
 }

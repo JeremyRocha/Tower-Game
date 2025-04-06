@@ -1,4 +1,5 @@
 <?php session_start();
+if(isset($_SESSION['username'])){
 $username = $_SESSION['username'];
 ?>
 <!doctype html>
@@ -19,18 +20,22 @@ $username = $_SESSION['username'];
         <button type="submit" name='logout'>Logout</button>
     </form>
 <?php
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    if(isset($_POST['logout'])){
-        session_destroy();
-        header('Location: login.php');
-        exit;
-    }
-    if(isset($_POST['play'])){
-        header('Location: shop.php');
-        exit;
-    }
+}else{
+    echo "Invalid Session";
 }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        if (isset($_POST['logout'])) {
+            session_destroy();
+            header('Location: login.php');
+            exit;
+        }
+        if (isset($_POST['play'])) {
+            header('Location: shop.php');
+            exit;
+        }
+    }
+
 ?>
 </body>
 </html>
