@@ -241,6 +241,7 @@ class Game {
                 $this->player->addMoney(50 * $this->round);
                 $this->round++;
                 $this->shop();
+                $this->determineRound();
                 return;
             }
 

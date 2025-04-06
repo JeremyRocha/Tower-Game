@@ -51,7 +51,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'login';
     <a href ="index.php?page=shop"><button>Play</button></a>
     <a href="login.php?logout=true"><button>Logout</button></a>
     <?php elseif($page == 'shop'):?>
-    <h2>Good luck <?=$_SESSION['username']?>!</h2>
+    <h2>Good luck Name Here!</h2>
     <?php
         $game = new Game();
         $game->startGame();
@@ -75,22 +75,29 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'login';
                     </label></td>
             </tr>
             <?php foreach ($shopItems as $element => $tier){
-                foreach ($tier as $item => $price){
-                    $name = $element . " " . $item;
-                    echo "<tr>
+                if(is_array($tier)) {
+                    foreach ($tier as $item => $price) {
+                        $name = $element . " " . $item;
+                        echo "<tr>
                            <td>$name</td>
                            <td>$price</td>
                            <td><input type='checkbox' name='items[]' value='$name'></td>
                            </tr>";
+                    }
                 }
             }
           ?>
         </tbody>
     </table>
+        <button type="submit" name="items">Purchase</button>
     </form>
+    <a href="index.php?page=game"><button>Continue</button></a>
     <a href="index.php?page=home">Back to main screen</a>
     <?php elseif($page == 'game'):?>
-    <?php $this->game->determineRound();?>
+    <form method="post" action="battle.php">
+        <button type="submit" name ='attack'>Attack</button>
+        <button type="submit" name ='Potion'>Potion</button>
+    </form>
     <?php endif;?>
 </body>
 </html>
