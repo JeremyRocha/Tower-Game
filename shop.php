@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "player.php";
 Class Shop{
     private $shopItems = [
         "Potion" => 20,
@@ -60,6 +61,8 @@ Class Shop{
                             if ($this->player->spendMoney($price)) {
                                 $this->player->equipSpell(["element" => $element, "tier" => $tier]);
                                 echo "bought spell";
+                            }else{
+                                echo "You don't have enough money!";
                             }
                         } else {
                             echo "No spell";
@@ -129,7 +132,7 @@ Class Shop{
 
 if(isset($_SESSION['username'])){
 
-    $player = unserialize($_SESSION['player']);
+    $player = new Player();
     $shop = new Shop($player);
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items'])){
         $shop->purchase();
