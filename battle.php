@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'player.php';
 abstract class Enemy{
     protected $enemyHealth; //Variable for enemy health
     protected $enemyElement; //Variable for enemy element
