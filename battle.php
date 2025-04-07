@@ -78,7 +78,7 @@ class Game {
     private $player;
 
     public function __construct(){
-        $this->player = new Player();
+        $this->player = $_SESSION['player'];
         $this->round = 1;
     }
 
