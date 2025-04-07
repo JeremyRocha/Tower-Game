@@ -171,4 +171,9 @@ class Game {
     }
 
 }
-
+if(isset($_SESSION['player'])){
+    $game = unserialize($_SESSION['game']);
+}else {
+    $game = new Game();
+    $_SESSION['game'] = serialize($game);
+}
