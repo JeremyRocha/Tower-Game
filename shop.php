@@ -37,6 +37,7 @@ Class Shop{
 
     public function purchase(){
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            var_dump($_POST["items"]);
             $selectedItems = $_POST["items"] ?? [];
             if(is_array($selectedItems)) {
                 foreach ($selectedItems as $item) {
@@ -98,7 +99,7 @@ Class Shop{
             <td> Potion </td>
             <td> 20</td>
             <td><label>
-                    <input type="checkbox" name="items[]" value="Potion">
+                    <input type="checkbox" name="items[0]" value="Potion">
                 </label></td>
         </tr>
         <?php foreach ($this->shopItems as $element => $tier){
