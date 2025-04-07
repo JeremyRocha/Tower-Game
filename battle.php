@@ -111,37 +111,39 @@ class Game {
             echo "Your health2: " . $this->player->getPlayerHealth();
             echo "Enemy health: " . $this->enemy->getEnemyHealth();
 
-            if(isset($_POST['attack'])) {
-                $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
-                if ($this->enemy instanceof Boss) {
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (isset($_POST['attack'])) {
+                    $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
+                    if ($this->enemy instanceof Boss) {
 
-                    if ($this->enemy->elementCheck($playerSpell['element'], $this->elementWheel)) {
+                        if ($this->enemy->elementCheck($playerSpell['element'], $this->elementWheel)) {
+                            $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
+                            $this->enemy->takeDamage($playerDamage);
+                            echo "You dealt damage";
+                        } else {
+                            echo "No Damage";
+                        }
+                    } else {
+
                         $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
                         $this->enemy->takeDamage($playerDamage);
-                        echo "You dealt damage";
-                    } else {
-                        echo "No Damage";
+                        echo " You dealt damage";
                     }
-                } else {
+                } elseif (isset($_POST['Potion'])) {
+                    if ($this->player->getHealthPotion() > 0) {
+                        $this->player->healing(30);
+                        $this->player->addPotion(-1);
 
-                    $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
-                    $this->enemy->takeDamage($playerDamage);
-                    echo " You dealt damage";
+                    } else {
+                        echo "No potions";
+                    }
                 }
-            }elseif (isset($_POST['Potion'])){
-                if($this->player->getHealthPotion() > 0){
-                    $this->player->healing(30);
-                    $this->player->addPotion(-1);
 
-                }else{
-                    echo "No potions";
+                if ($this->enemy->getEnemyHealth() > 0) {
+                    $enemyDamage = $this->enemy->attack();
+                    $this->player->takingDamage($enemyDamage);
+                    echo "Enemy dealt damage";
                 }
-            }
-
-            if ($this->enemy->getEnemyHealth() > 0) {
-                $enemyDamage = $this->enemy->attack();
-                $this->player->takingDamage($enemyDamage);
-                echo "Enemy dealt damage";
             }
 
             if($this->enemy->getEnemyHealth() <= 0){
