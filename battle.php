@@ -172,10 +172,6 @@ class Game {
     }
 
 }
-if(isset($_SESSION['game'])){
-    $game = unserialize($_SESSION['game']);
-}else {
+
     $game = new Game();
-    $game->combat();
-    $_SESSION['game'] = serialize($game);
-}
+    $game->determineRound();
