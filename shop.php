@@ -38,33 +38,35 @@ Class Shop{
     public function purchase(){
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $selectedItems = $_POST["items"] ?? [];
-
-            foreach ($selectedItems as $item) {
-
-                if (isset($this->shopItems[$item])) {
-                    $price = $this->shopItems[$item];
-                    if ($this->player->spendMoney($price)) {
-                        $this->player->addPotion(1);
-                        echo "Potion bought";
-                    } else {
-                        echo "You don't have enough money!";
-                    }
-                } else {
-                    $split = explode(" ", $item);
-                    $element = $split[0];
-                    $spellAccess = $split[1] . " " . $split[2] . " " . $split[3];
-                    $tier = (int)$split[2];
-
-                    if (isset($this->shopItems[$element][$spellAccess])) {
-                        $price = $this->shopItems[$element][$spellAccess];
+            if(is_array($selectedItems)) {
+                foreach ($selectedItems as $item) {
+                    if ($item == "Potion") {
+                        $price = $this->shopItems["Potion"];
                         if ($this->player->spendMoney($price)) {
-                            $this->player->equipSpell(["element" => $element, "tier" => $tier]);
-                            echo "bought spell";
+                            $this->player->addPotion(1);
+                            echo "Potion bought";
+                        } else {
+                            echo "You don't have enough money!";
                         }
-                    }else{
-                        echo "No spell";
+                    } else {
+                        $split = explode(" ", $item);
+                        $element = $split[0];
+                        $spellAccess = $split[1] . " " . $split[2] . " " . $split[3];
+                        $tier = (int)$split[2];
+
+                        if (isset($this->shopItems[$element][$spellAccess])) {
+                            $price = $this->shopItems[$element][$spellAccess];
+                            if ($this->player->spendMoney($price)) {
+                                $this->player->equipSpell(["element" => $element, "tier" => $tier]);
+                                echo "bought spell";
+                            }
+                        } else {
+                            echo "No spell";
+                        }
                     }
                 }
+            }else{
+                echo "No selected";
             }
         }
     }
