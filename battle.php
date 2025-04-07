@@ -4,7 +4,7 @@ session_start();
 $player = unserialize($_SESSION['player']);
 $health = $player->getPlayerWallet();
 echo"Health: ".$health."<br>";
-memory_get_usage();
+
 //this is working ^
 
 abstract class Enemy{
