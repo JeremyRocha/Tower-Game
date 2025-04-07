@@ -1,5 +1,4 @@
 <?php
-require 'battle.php';
 session_start();
 Class Shop{
     private $shopItems = [
