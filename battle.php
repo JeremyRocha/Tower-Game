@@ -2,8 +2,8 @@
 include 'player.php';
 session_start();
 if(!isset($_SESSION['player'])) {
-    $health = $player->getPlayerWallet();
-    echo "Health: " . $health . "<br>";
+
+    echo "Debug me ";
 }
 $player = unserialize($_SESSION['player']);
 //this is working ^
