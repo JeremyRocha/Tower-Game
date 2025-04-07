@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class Player{
     private $playerHealth; //Variable for player health
     private $playerWallet; //Variable to hold money

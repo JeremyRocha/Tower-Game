@@ -1,5 +1,5 @@
 <?php
-
+require 'battle.php';
 Class Shop{
     private $shopItems = [
         "Potion" => 20,
@@ -126,7 +126,8 @@ Class Shop{
 session_start();
 
 if(isset($_SESSION['username'])){
-    $player = $_SESSION['username'];
+    $player = new Player();
+    $_SESSION['player'] = serialize($player);
     $shop = new Shop($player);
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items'])){
         $shop->purchase();
