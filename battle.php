@@ -104,11 +104,11 @@ class Game {
     }
 
     public function combat(){
-        echo "Your opponent is: " . get_class($this->enemy) . " with ". $this->enemy->getEnemyHealth() . " Health!";
-        //echo"HelP play". $this->player->getPlayerHealth();
+        echo "Your opponent is: " . get_class($this->enemy) . " with ". $this->enemy->getEnemyHealth() . " Health! Element:" . $this->enemy->getEnemyElement() . "\n"; ;
+        echo"Your Health1". $this->player->getPlayerHealth();
 
         while ($this->player->getPlayerHealth() > 0 && $this->enemy->getEnemyHealth() > 0){
-            echo "Your health: " . $this->player->getPlayerHealth();
+            echo "Your health2: " . $this->player->getPlayerHealth();
             echo "Enemy health: " . $this->enemy->getEnemyHealth();
 
             if(isset($_POST['attack'])) {
