@@ -4,6 +4,7 @@ session_start();
 $player = unserialize($_SESSION['player']);
 $health = $player->getPlayerWallet();
 echo"Health: ".$health."<br>";
+//this is working ^
 
 abstract class Enemy{
     protected $enemyHealth; //Variable for enemy health
