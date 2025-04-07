@@ -4,6 +4,7 @@ session_start();
 $player = unserialize($_SESSION['player']);
 $health = $player->getPlayerWallet();
 echo"Health: ".$health."<br>";
+memory_get_usage();
 //this is working ^
 
 abstract class Enemy{
@@ -83,8 +84,9 @@ class Game {
     private $player;
 
     public function __construct($player){
-        //$this->player = $player; this gives bad gateway
+        $this->player = $player;
         $this->round = 1;
+        $this->enemy = null;
     }
 
 
@@ -95,11 +97,13 @@ class Game {
         }
         echo "Starting Round!";
         $this->enemy = $this->generateEnemy($this->round);
-        $this->combat();
+        echo get_class($this->enemy)."Help me";
+      //  $this->combat();
     }
 
     public function combat(){
-        echo "Your opponent is: " . get_class($this->enemy) . " with ". $this->enemy->getEnemyHealth() . " Health!";
+       // echo "Your opponent is: " . get_class($this->enemy) . " with ". $this->enemy->getEnemyHealth() . " Health!";
+        echo"Hel". $this->player->getPlayerHealth();
 
         while ($this->player->getPlayerHealth() > 0 && $this->enemy->getEnemyHealth() > 0){
             echo "Your health: " . $this->player->getPlayerHealth();
