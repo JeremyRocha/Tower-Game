@@ -96,7 +96,9 @@ class Game {
         }
         echo "Starting Round!";
         $this->enemy = $this->generateEnemy($this->round);
-        $this->combat();
+        echo "Enemy element". $this->enemy->getEnemyElement(); //Working for enemy
+        echo "Player Health". $this->player->getPlayerWallet(); //Working to get the right of value of object passed used wallet to make sure of that
+        //$this->combat(); This call causes the 502 error
     }
 
     public function combat(){
@@ -187,7 +189,7 @@ class Game {
 
 }
     $game = new Game($player);
-//$game->combat();
+$game->determineRound();
 var_dump($_SESSION['player']);
 $enemy = $game->generateEnemy(1);
 var_dump($enemy);
