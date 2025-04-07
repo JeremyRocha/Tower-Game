@@ -1,7 +1,7 @@
 <?php
 include 'player.php';
 session_start();
-$player = unserialize($_SESSION['player']);
+$player = $_SESSION['player'];
 abstract class Enemy{
     protected $enemyHealth; //Variable for enemy health
     protected $enemyElement; //Variable for enemy element
