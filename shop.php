@@ -125,11 +125,8 @@ Class Shop{
 }
 
 if(isset($_SESSION['username'])){
-    if(isset($_SESSION['player'])){
-        $player = unserialize($_SESSION['player']);
-    }else {
-        $player = new Player();
-    }
+
+    $player = unserialize($_SESSION['player']);
     $shop = new Shop($player);
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items'])){
         $shop->purchase();
