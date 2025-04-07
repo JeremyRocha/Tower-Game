@@ -99,7 +99,7 @@ Class Shop{
             <td> Potion </td>
             <td> 20</td>
             <td><label>
-                    <input type="checkbox" name="items[0]" value="Potion">
+                    <input type="checkbox" name="items[]" value="Potion">
                 </label></td>
         </tr>
         <?php foreach ($this->shopItems as $element => $tier){
@@ -117,7 +117,7 @@ Class Shop{
         ?>
         </tbody>
     </table>
-    <button type="submit" name="items">Purchase</button>
+    <button type="submit" >Purchase</button>
 </form>
 <a href="home.php">Return to home</a>
 <a href="battle.php">Continue to game</a>
