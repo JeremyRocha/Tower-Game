@@ -178,5 +178,5 @@ class Game {
 
 }
     $game = new Game($player);
-$game->determineRound();
+//$game->determineRound(); if I call this I get the bad gateway
     var_dump($_SESSION['player']);
