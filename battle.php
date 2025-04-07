@@ -83,7 +83,7 @@ class Game {
     private $player;
 
     public function __construct($player){
-        $this->player = $player;
+        //$this->player = $player; this gives bad gateway
         $this->round = 1;
     }
 
@@ -178,5 +178,5 @@ class Game {
 
 }
     $game = new Game($player);
-//$game->determineRound(); if I call this I get the bad gateway
+$game->determineRound();
     var_dump($_SESSION['player']);
