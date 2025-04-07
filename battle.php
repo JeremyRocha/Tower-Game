@@ -171,7 +171,7 @@ class Game {
     }
 
 }
-if(isset($_SESSION['player'])){
+if(isset($_SESSION['game'])){
     $game = unserialize($_SESSION['game']);
 }else {
     $game = new Game();
