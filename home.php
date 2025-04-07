@@ -100,7 +100,7 @@ $username = $_SESSION['username'];
         }
         if (isset($_POST['play'])) {
             $player = new Player();
-            $_SESSION['player'] = $player;
+            $_SESSION['player'] = serialize($player);
             header('Location: shop.php');
             exit;
         }
