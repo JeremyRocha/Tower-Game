@@ -69,6 +69,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])){
 
 if(isset($_GET['logout'])){
     session_destroy();
-    header("Location: index.php?page=login");
+    header("Location: login.php");
     exit(); //Exit program
 }
