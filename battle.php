@@ -107,7 +107,8 @@ class Game {
                 $this->determineRound();
                 return;
             }
-
+                echo"<form method = 'POST' action = 'battle.php'>";
+                echo"<button type= 'submit' name ='attack'>Attack</button>";
             if(isset($_POST['attack'])){
                 if($this->enemy instanceof Boss){
                     $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
@@ -175,5 +176,6 @@ if(isset($_SESSION['game'])){
     $game = unserialize($_SESSION['game']);
 }else {
     $game = new Game();
+    $game->combat();
     $_SESSION['game'] = serialize($game);
 }
