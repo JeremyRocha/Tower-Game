@@ -40,7 +40,7 @@ Class Shop{
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             var_dump($_POST["items"]);
             $selectedItems = $_POST["items"] ?? [];
-            if(is_array($selectedItems)) {
+
                 foreach ($selectedItems as $item) {
                     if ($item == "Potion") {
                         $price = $this->shopItems["Potion"];
@@ -69,9 +69,6 @@ Class Shop{
                         }
                     }
                 }
-            }else{
-                echo "No selected";
-            }
         }
     }
 
