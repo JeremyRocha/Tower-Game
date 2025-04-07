@@ -126,11 +126,15 @@ Class Shop{
 session_start();
 
 if(isset($_SESSION['username'])){
-    $player = new Player();
-    $_SESSION['player'] = serialize($player);
+    if(isset($_SESSION['player'])){
+        $player = unserialize($_SESSION['player']);
+    }else {
+        $player = new Player();
+    }
     $shop = new Shop($player);
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items'])){
         $shop->purchase();
+        $_SESSION['player'] = serialize($player);
     }else{
         $shop->showShop();
     }
