@@ -1,11 +1,9 @@
 <?php
 include 'player.php';
 session_start();
-if(!isset($_SESSION['player'])) {
 
-    echo "Debug me ";
-}
 $player = unserialize($_SESSION['player']);
+echo "helath" . $player->getPlayerHealth();
 //this is working ^
 
 abstract class Enemy{
@@ -189,5 +187,7 @@ class Game {
 
 }
     $game = new Game($player);
-//$game->determineRound(); commented till I fix bad gateway
-    var_dump($_SESSION['player']);
+//$game->combat();
+var_dump($_SESSION['player']);
+$enemy = $game->generateEnemy(1);
+var_dump($enemy);
