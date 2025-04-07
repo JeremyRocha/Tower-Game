@@ -36,12 +36,13 @@ Class Shop{
     }
 
     public function purchase(){
+
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $selectedItems = $_POST["items"] ?? [];
 
             foreach ($selectedItems as $item) {
 
-                if ($item == "Potion") {
+                if (isset($this->shopItems[$item]) && !is_array($this->shopItems[$item])) {
                     $price = $this->shopItems[$item];
                     if ($this->player->spendMoney($price)) {
                         $this->player->addPotion(1);
