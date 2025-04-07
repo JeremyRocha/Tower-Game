@@ -1,7 +1,10 @@
 <?php
 include 'player.php';
 session_start();
-$player = $_SESSION['player'];
+$player = unserialize($_SESSION['player']);
+$health = $player->getPlayerWallet();
+echo"Health: ".$health."<br>";
+
 abstract class Enemy{
     protected $enemyHealth; //Variable for enemy health
     protected $enemyElement; //Variable for enemy element
@@ -173,7 +176,6 @@ class Game {
     }
 
 }
-
     $game = new Game($player);
-    $game->determineRound();
+$game->combat();
     var_dump($_SESSION['player']);
