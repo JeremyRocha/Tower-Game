@@ -1,6 +1,7 @@
 <?php
-session_start();
 include 'player.php';
+session_start();
+$player = unserialize($_SESSION['player']);
 abstract class Enemy{
     protected $enemyHealth; //Variable for enemy health
     protected $enemyElement; //Variable for enemy element
@@ -77,8 +78,8 @@ class Game {
     private $round;
     private $player;
 
-    public function __construct(){
-        $this->player = $_SESSION['player'];
+    public function __construct($player){
+        $this->player = $player;
         $this->round = 1;
     }
 
@@ -173,5 +174,6 @@ class Game {
 
 }
 
-    $game = new Game();
+    $game = new Game($player);
     $game->determineRound();
+    var_dump($_SESSION['player']);
