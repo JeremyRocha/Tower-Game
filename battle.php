@@ -1,10 +1,11 @@
 <?php
 include 'player.php';
 session_start();
+if(!isset($_SESSION['player'])) {
+    $health = $player->getPlayerWallet();
+    echo "Health: " . $health . "<br>";
+}
 $player = unserialize($_SESSION['player']);
-$health = $player->getPlayerWallet();
-echo"Health: ".$health."<br>";
-
 //this is working ^
 
 abstract class Enemy{
@@ -86,24 +87,23 @@ class Game {
     public function __construct($player){
         $this->player = $player;
         $this->round = 1;
-        $this->enemy = null;
     }
 
 
     public function determineRound(){
         if($this->round > 5){
             echo "You beat the boss and finished the game!";
-            return;
+            header("Location: home.php");
+            exit;
         }
         echo "Starting Round!";
         $this->enemy = $this->generateEnemy($this->round);
-        echo get_class($this->enemy)."Help me";
-      //  $this->combat();
+        $this->combat();
     }
 
     public function combat(){
-       // echo "Your opponent is: " . get_class($this->enemy) . " with ". $this->enemy->getEnemyHealth() . " Health!";
-        echo"Hel". $this->player->getPlayerHealth();
+        echo "Your opponent is: " . get_class($this->enemy) . " with ". $this->enemy->getEnemyHealth() . " Health!";
+        echo"HelP play". $this->player->getPlayerHealth();
 
         while ($this->player->getPlayerHealth() > 0 && $this->enemy->getEnemyHealth() > 0){
             echo "Your health: " . $this->player->getPlayerHealth();
@@ -112,15 +112,19 @@ class Game {
             if($this->enemy->getEnemyHealth() <= 0){
                 echo "You defeated the enemy!";
                 $this->player->addMoney(50 * $this->round);
+                $_SESSION['player'] = serialize($this->player);
                 $this->round++;
-
-                return;
+                header("Location: shop.php");
+                exit;
             }
                 echo"<form method = 'POST' action = 'battle.php'>";
                 echo"<button type= 'submit' name ='attack'>Attack</button>";
+                echo"<button type= 'submit' name ='Potion'>Potion</button>";
+                echo"</form>";
             if(isset($_POST['attack'])){
+                $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
                 if($this->enemy instanceof Boss){
-                    $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
+
                     if($this->enemy->elementCheck($playerSpell['element'], $this->elementWheel)){
                         $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
                         $this->enemy->takeDamage($playerDamage);
@@ -129,7 +133,7 @@ class Game {
                         echo "No Damage";
                     }
                 }else {
-                    $playerSpell = ["tier" => $this->player->getSpellTier(), "element" => $this->player->getElement()];
+
                     $playerDamage = $this->calculateDamage($playerSpell, $this->enemy->getEnemyElement());
                     $this->enemy->takeDamage($playerDamage);
                     echo " You dealt damage";
@@ -141,6 +145,7 @@ class Game {
                 if($this->player->getHealthPotion() > 0){
                     $this->player->healing(30);
                     $this->player->addPotion(-1);
+
                 }else{
                     echo "No potions";
                 }
@@ -148,7 +153,9 @@ class Game {
 
             if($this->player->getPlayerHealth() <= 0){
                 echo "You been defeated!";
+                $_SESSION['player'] = serialize($this->player);
                 header("Location: home.php");
+                exit;
             }
         }
     }
@@ -182,5 +189,5 @@ class Game {
 
 }
     $game = new Game($player);
-$game->determineRound();
+//$game->determineRound(); commented till I fix bad gateway
     var_dump($_SESSION['player']);
