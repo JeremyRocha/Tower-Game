@@ -109,7 +109,7 @@ class Game {
                 echo "You defeated the enemy!";
                 $this->player->addMoney(50 * $this->round);
                 $this->round++;
-                $this->determineRound();
+
                 return;
             }
                 echo"<form method = 'POST' action = 'battle.php'>";
@@ -178,5 +178,5 @@ class Game {
 
 }
     $game = new Game($player);
-$game->combat();
+$game->determineRound();
     var_dump($_SESSION['player']);
