@@ -141,6 +141,7 @@ if(isset($_SESSION['username'])){
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['items'])){
         $shop->purchase();
         $_SESSION['player'] = serialize($player);
+        $shop->showShop();
     }else{
         $shop->showShop();
     }
