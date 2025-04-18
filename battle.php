@@ -79,7 +79,7 @@ class Game {
         "Water" => "Fire"];
 
     private $enemy;
-    private $round; //hell
+    private $round; //hello
     private $player;
 
     public function __construct($player){
